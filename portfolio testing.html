@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Samiksha | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-bg: #0a0a13;
+      --card-bg: #181a26;
+      --accent: #2186fa;
+      --accent-light: #53aeff;
+      --text: #eaeaea;
+      --muted: #8f9bb3;
+      --radius: 16px;
+      --sidebar-width: 220px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--main-bg);
+      color: var(--text);
+      font-family: 'Montserrat', Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      display: flex;
+      min-height: 100vh;
+    }
+    aside {
+      width: var(--sidebar-width);
+      background: #131526;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0 20px 0;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 10;
+      border-right: 2.5px solid var(--accent);
+    }
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      object-fit: cover;
+      margin-bottom: 18px;
+      background: var(--main-bg);
+      box-shadow: 0 4px 18px rgba(33,134,250,0.15);
+    }
+    .sidebar-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+    .sidebar-role {
+      color: var(--muted);
+      font-size: 0.95em;
+      margin-bottom: 20px;
+      text-align: center;
+      line-height: 1.3;
+    }
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .nav-link {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.1em;
+      padding: 8px 0;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+      text-align: left;
+      width: 130px;
+      font-family: inherit;
+    }
+    .nav-link.active, .nav-link:hover {
+      color: var(--accent-light);
+      background: #181a26;
+    }
+    .sidebar-footer {
+      margin-top: auto;
+      color: var(--muted);
+      font-size: 0.9em;
+      text-align: center;
+    }
+    .sidebar-social {
+      margin-top: 22px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    .sidebar-social a img {
+      width: 26px;
+      height: 26px;
+      opacity: 0.85;
+      transition: opacity 0.15s;
+      border-radius: 50%;
+      background: #131526;
+      padding: 2px;
+    }
+    .sidebar-social a img:hover {
+      opacity: 1;
+      box-shadow: 0 0 10px var(--accent-light);
+    }
+    main {
+      margin-left: var(--sidebar-width);
+      width: 100%;
+      padding: 48px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 850px;
+      padding: 0 22px;
+    }
+    section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 2px solid var(--accent);
+      margin-bottom: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+      padding: 34px 28px;
+      transition: box-shadow 0.2s;
+    }
+    section:last-child { margin-bottom: 0; }
+    h2 {
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 2em;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .about-flex {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .about-flex img {
+      width: 130px;
+      height: 130px;
+      border-radius: 18px;
+      border: 2px solid var(--accent-light);
+      object-fit: cover;
+      background: var(--main-bg);
+      box-shadow: 0 2px 15px rgba(33,134,250,0.11);
+    }
+    .about-text {
+      flex: 1;
+      min-width: 220px;
+    }
+    .about-text h1 {
+      font-size: 2.2em;
+      margin: 0 0 10px 0;
+      color: var(--accent-light);
+      font-weight: 700;
+    }
+    .about-text p {
+      font-size: 1.1em;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px 24px;
+      margin-top: 18px;
+    }
+    .skill-card {
+      background: #131526;
+      border: 2px solid var(--accent-light);
+      border-radius: 10px;
+      padding: 18px 16px;
+      text-align: center;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 1.04em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: border 0.18s, box-shadow 0.18s;
+    }
+    .skill-card img {
+      width: 38px;
+      height: 38px;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 0 6px #2186fa88);
+    }
+    .skill-card:hover {
+      border: 2.5px solid var(--accent);
+      box-shadow: 0 0 12px var(--accent-light);
+    }
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin-top: 24px;
+    }
+    .project {
+      background: #131526;
+      border: 2px solid var(--accent-light);
+      border-radius: 10px;
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+      padding: 18px;
+      box-shadow: 0 2px 10px rgba(33,134,250,0.08);
+      flex-wrap: wrap;
+      transition: border 0.18s, box-shadow 0.18s;
+    }
+    .project:hover {
+      border: 2.5px solid var(--accent);
+      box-shadow: 0 0 12px var(--accent-light);
+    }
+    .project-img {
+      width: 140px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 7px;
+      border: 2px solid var(--accent-light);
+      background: var(--main-bg);
+      margin-bottom: 6px;
+    }
+    .project-details {
+      flex: 1;
+      min-width: 200px;
+    }
+    .project-title {
+      font-size: 1.18em;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .project-links a {
+      margin-right: 14px;
+      color: var(--accent-light);
+      font-size: 1em;
+      text-decoration: none;
+    }
+    .project-links a:hover { text-decoration: underline; color: var(--accent);}
+    .project-desc { margin-top: 6px; margin-bottom: 0; line-height: 1.6;}
+    .edu-exp-list {
+      margin-top: 18px;
+      margin-bottom: 0;
+      padding-left: 18px;
+    }
+    .edu-exp-item {
+      margin-bottom: 15px;
+      font-size: 1.06em;
+    }
+    .contact-content {
+      text-align: center;
+      padding: 14px 0;
+    }
+    .contact-content p, .contact-content a {
+      font-size: 1.13em;
+      color: var(--accent-light);
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    .contact-content a:hover { color: var(--accent);}
+    @media (max-width: 900px) {
+      aside { width: 100vw; height: auto; position: relative; flex-direction: row; padding: 20px 0 10px 0;}
+      .sidebar-title, .sidebar-role, .sidebar-footer, .sidebar-social {display: none;}
+      nav { flex-direction: row; margin-bottom: 0; gap: 0;}
+      .nav-link { width: 80px; font-size: 1em; padding: 6px 0;}
+      main { margin-left: 0; padding: 30px 0;}
+      .container { padding: 0 5px; }
+    }
+    @media (max-width: 600px) {
+      .about-flex, .project { flex-direction: column; gap: 16px; align-items: stretch;}
+      .about-flex img, .project-img { margin: 0 auto; display: block; }
+      section { padding: 18px 7px; }
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <img src="https://cdn.mos.cms.futurecdn.net/v2/t:0,l:1593,cw:4096,ch:4096,q:80,w:4096/cuJ2nHdA2cLngX4bhsHsye.jpg" alt="Samiksha profile" class="profile-img">
+    <div class="sidebar-title">Samiksha</div>
+    <div class="sidebar-role">Wanna Be Python Developer<br>& Tech Enthusiast</div>
+    <nav>
+      <button class="nav-link active" onclick="showSection('about')">About</button>
+      <button class="nav-link" onclick="showSection('skills')">Skills</button>
+      <button class="nav-link" onclick="showSection('projects')">Projects</button>
+      <button class="nav-link" onclick="showSection('education')">Education</button>
+      <button class="nav-link" onclick="showSection('contact')">Contact</button>
+    </nav>
+    <div class="sidebar-social">
+      <a href="https://github.com/samiksha-2187" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"></a>
+      <a href="https://linkedin.com/in/samiksha-kumari" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn"></a>
+      <a href="mailto:samikshakimari2187@gmail.com"><img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email"></a>
+    </div>
+    <div class="sidebar-footer">
+      &copy; 2025 Samiksha<br>All rights reserved.
+    </div>
+  </aside>
+  <main>
+    <div class="container">
+      <!-- About Section -->
+      <section id="about" class="active">
+        <div class="about-flex">
+          <img src="https://cdn.mos.cms.futurecdn.net/v2/t:0,l:1593,cw:4096,ch:4096,q:80,w:4096/cuJ2nHdA2cLngX4bhsHsye.jpg" alt="Samiksha smiling portrait">
+          <div class="about-text">
+            <h1>Hi, I'm Samiksha 👋</h1>
+            <p>
+              I'm a passionate Python developer who loves building creative projects and solving real-world problems through code. 
+              My interests include web development, Chatbots, and AI integrated projects. <br>
+              I value clean code, lifelong learning, and enjoy collaborating with others!
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- Skills Section -->
+      <section id="skills">
+        <h2>Skills & Technologies</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+            Python
+          </div>
+          <div class="skill-card">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django">
+            Django / Flask
+          </div>
+          <div class="skill-card">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
+            Pandas / NumPy
+          </div>
+          <div class="skill-card">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+            Git & GitHub
+          </div>
+          <div class="skill-card">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+            HTML, CSS, JS
+          </div>
+          <div class="skill-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/10110/10110584.png" alt="API">
+            REST APIs
+          </div>
+          <div class="skill-card">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+            Linux / CLI
+          </div>
+          <div class="skill-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/2103/2103665.png" alt="Problem Solving">
+            Problem Solving
+          </div>
+        </div>
+      </section>
+      <!-- Projects Section -->
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-list">
+          <div class="project">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=facearea&w=400&h=300" alt="Expense Tracker" class="project-img">
+            <div class="project-details">
+              <div class="project-title">Personal Expense Tracker</div>
+              <div class="project-links">
+                <a href="https://github.com/yourusername/expense-tracker" target="_blank">GitHub Repo</a>
+              </div>
+              <p class="project-desc">
+                <strong>Tech:</strong> Python, Flask, SQLite, HTML/CSS<br>
+                A web app to track daily expenses, visualize spending by category, and generate monthly reports.
+                Features user login and beautiful charts.
+              </p>
+            </div>
+          </div>
+          <div class="project">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&h=300" alt="Weather Data Analyzer" class="project-img">
+            <div class="project-details">
+              <div class="project-title">Weather Data Analyzer</div>
+              <div class="project-links">
+                <a href="https://github.com/yourusername/weather-analyzer" target="_blank">GitHub Repo</a>
+              </div>
+              <p class="project-desc">
+                <strong>Tech:</strong> Python, Pandas, API, Matplotlib<br>
+                Fetches weather data from API and analyzes trends, visualizing temperature and rainfall over time.
+              </p>
+            </div>
+          </div>
+          <div class="project">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=facearea&w=400&h=300" alt="Portfolio Website" class="project-img">
+            <div class="project-details">
+              <div class="project-title">Portfolio Website (This Site!)</div>
+              <div class="project-links"></div>
+              <p class="project-desc">
+                <strong>Tech:</strong> HTML, CSS, JavaScript<br>
+                This is a website for my making, understanding and testing of my skills.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Education Section -->
+      <section id="education">
+        <h2>Education & Experience</h2>
+        <ul class="edu-exp-list">
+          <li class="edu-exp-item">
+            <strong>GRADE 10</strong><br>
+            [AJANTA PUBLIC SCHOOL]
+          </li>
+          <li class="edu-exp-item">
+            <strong>Studying - AI (NN, CNN, DL)</strong><br>
+            Cleaned and analyzed datasets, built Python scripts for automation and reporting.
+          </li>
+        </ul>
+      </section>
+      <!-- Contact Section -->
+      <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-content">
+          <p>Email: <a href="mailto:your.email@example.com">samikshakumari2187@gmail.com</a></p><br>
+          <a href="https://github.com/Samiksha-2187" target="_blank">GitHub</a> |
+          <a href="https://linkedin.com/in/samiksha-kumari" target="_blank">LinkedIn</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script>
+    // Section navigation logic
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('.container > section').forEach(sec => sec.classList.remove('active'));
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+      // Update nav button active state
+      document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+      let navIdx = 0;
+      if(sectionId==='about') navIdx=0;
+      else if(sectionId==='skills') navIdx=1;
+      else if(sectionId==='projects') navIdx=2;
+      else if(sectionId==='education') navIdx=3;
+      else if(sectionId==='contact') navIdx=4;
+      document.querySelectorAll('.nav-link')[navIdx].classList.add('active');
+      // Scroll to top of main for mobile experience
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
